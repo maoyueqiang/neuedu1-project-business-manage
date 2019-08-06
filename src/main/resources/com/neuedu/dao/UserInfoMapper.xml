@@ -77,4 +77,17 @@
     update_time, ip
     from neuedu_user
   </select>
+
+  <select id="existUsername" parameterType="string" resultType="int">
+    select count(*) from neuedu_user where username=#{username}
+  </select>
+
+  <select id="findByUsernameAndPassword" parameterType="user" resultMap="BaseResultMap">
+    select id, username, password, email, phone, question, answer, role, create_time,
+    update_time, ip
+    from neuedu_user
+    where username=#{user.username} and password=#{user.password}
+  </select>
+
+
 </mapper>
