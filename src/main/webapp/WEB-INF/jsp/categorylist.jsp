@@ -11,17 +11,20 @@
 <head>
     <title>类别列表</title>
 
-    <table>
-        <tr>
-            <th>类别Id</th>
-            <th>类别名称</th>
-            <th>所属父类</th>
-            <th>类别状态</th>
-            <th>创建时间</th>
-            <th>修改时间</th>
-            <td>操作</td>
-        </tr>
-        <c:forEach items="${categorylist}" var="category">
+</head>
+<body>
+
+<table>
+    <tr>
+        <th>类别Id</th>
+        <th>类别名称</th>
+        <th>所属父类</th>
+        <th>类别状态</th>
+        <th>创建时间</th>
+        <th>修改时间</th>
+        <th>操作</th>
+    </tr>
+    <c:forEach items="${categorylist}" var="category">
         <tr>
             <td>${category.id}</td>
             <td>${category.name}</td>
@@ -30,14 +33,12 @@
             <td>${category.createTime}</td>
             <td>${category.updateTime}</td>
             <td><a href="update/${category.id}">修改</a>
-                <a href="">删除</a>
+                <a href="delete/${category.id}">删除</a>
             </td>
         </tr>
-        </c:forEach>
-    </table>
-
-</head>
-<body>
+    </c:forEach>
+</table>
+<a href="insert">添加类别</a>
 
 </body>
 </html>

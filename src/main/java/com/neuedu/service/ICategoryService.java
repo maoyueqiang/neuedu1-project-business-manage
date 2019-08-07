@@ -25,4 +25,5 @@ public interface ICategoryService {
      * 根据类别id查询类别信息
      */
     public Category findCategoryById(int categoryId);
+
 }
