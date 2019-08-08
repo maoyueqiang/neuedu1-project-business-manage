@@ -77,9 +77,9 @@ public class AnnotationTest {
         for(int i=0;i<fields.length;i++){
             Field field = fields[i];
             String fieldName=field.getName();
-            String mehoedName="get"+fieldName.substring(0,1).toUpperCase()+fieldName.substring(1);
+            String methoedName="get"+fieldName.substring(0,1).toUpperCase()+fieldName.substring(1);
             try {
-                Method method = c.getMethod(mehoedName);
+                Method method = c.getMethod(methoedName);
                 Object o = method.invoke(userinfo);
                 if(o!=null){
                     boolean isexistsColumnAnnotation = field.isAnnotationPresent(Column.class);

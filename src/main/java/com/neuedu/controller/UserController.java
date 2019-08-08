@@ -26,7 +26,7 @@ public class UserController {
 
     @RequestMapping(value = "login",method = RequestMethod.GET)
     public String login(){
-        return "login";
+        return "home/login";
     }
 
     @RequestMapping(value = "login",method = RequestMethod.POST)
@@ -37,7 +37,7 @@ public class UserController {
         System.out.println(userInfo1);
 
         session.setAttribute(Const.CURRENT_USER,userInfo1);
-        return "redirect:/user/userinfo/list";
+        return "home/home";
     }
 
     //显示用户列表
@@ -47,7 +47,7 @@ public class UserController {
         System.out.println(userList);
         session.setAttribute("userlist",userList);
 
-        return "userlist";
+        return "user/list";
     }
 
 
@@ -56,20 +56,32 @@ public class UserController {
     public String updateuser(@PathVariable("id") Integer userId, HttpServletRequest request){
         UserInfo userInfo = userService.findUserById(userId);
         request.setAttribute("userinfo",userInfo);
-        return "userupdate";
+        return "user/index";
+    }
+    //跳转用户添加界面
+    @RequestMapping(value = "insert",method = RequestMethod.GET)
+    public String insert(){
+        return "user/index";
     }
 
 
-    //用户更新提交
-    @RequestMapping(value = "update/{id}",method = RequestMethod.POST)
+    //用户更新/添加提交
+    @RequestMapping(value = "updateorinsert",method = RequestMethod.POST)
     public String updateuser(UserInfo userInfo, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        int count = userService.updateUser(userInfo);
+        if(userInfo.getId()!=null){
+            int count = userService.updateUser(userInfo);
+            if(count>0){
+                return "redirect:/user/userinfo/list";
+            }
+            return "user/index";
+        }
+        int count = userService.addUserInfo(userInfo);
         if(count>0){
             return "redirect:/user/userinfo/list";
         }
-        return "userupdate";
+        throw new MyException("添加失败");
     }
 
     //用户删除操作
@@ -82,21 +94,9 @@ public class UserController {
         throw new MyException("删除失败");
     }
 
-    //跳转用户添加界面
-    @RequestMapping(value = "insert",method = RequestMethod.GET)
-    public String insert(){
-        return "userinsert";
-    }
 
-    //用户添加提交
-    @RequestMapping(value = "insert",method = RequestMethod.POST)
-    public String insert(UserInfo userInfo){
-        int count = userService.addUserInfo(userInfo);
-        if(count>0){
-            return "redirect:/user/userinfo/list";
-        }
-        throw new MyException("添加失败");
-    }
+
+
 
 
 

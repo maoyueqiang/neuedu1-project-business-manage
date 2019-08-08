@@ -8,7 +8,7 @@ public class TestController {
 
     @RequestMapping("/login")
     public String login(){
-        return "login";
+        return "home/login";
     }
 
 

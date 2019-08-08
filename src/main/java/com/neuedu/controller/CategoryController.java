@@ -29,7 +29,7 @@ public class CategoryController {
         List<Category> categoryList = categoryService.findAll();
         session.setAttribute("categorylist",categoryList);
 
-        return "categorylist";
+        return "category/list";
     }
 
     @RequestMapping(value = "update/{id}",method = RequestMethod.GET)

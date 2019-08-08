@@ -13,11 +13,50 @@
     <!--<mvc:annotation-driven />-->
     <context:component-scan base-package="com.neuedu"/>
     <!--viewresolve  视图解析器 向客户端返回-->
-    <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-        <property name="prefix" value="/WEB-INF/jsp/"/>    <!--前缀-->
-        <property name="suffix" value=".jsp"/>    <!--后缀-->
+    <!--<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+        <!--<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>-->
+        <!--<property name="prefix" value="/WEB-INF/jsp/"/>    &lt;!&ndash;前缀&ndash;&gt;-->
+        <!--<property name="suffix" value=".jsp"/>    &lt;!&ndash;后缀&ndash;&gt;-->
+    <!--</bean>-->
+
+    <!-- Freemarker配置 -->
+    <bean id="freemarkerConfig"
+          class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="templateLoaderPath" value="/WEB-INF/views/" /><!--模板加载位置,即前缀-->
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="template_update_delay">0</prop>
+                <prop key="default_encoding">UTF-8</prop>
+                <prop key="number_format">0.##########</prop>
+                <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop><!--只适用于java.sql.Date-->
+                <prop key="classic_compatible">true</prop>
+                <prop key="template_exception_handler">ignore</prop>
+            </props>
+        </property>
+        <property name="freemarkerVariables">
+            <map>
+                <!--下面四个是在下面定义的-->
+                <entry key="extends" value-ref="extendsDirective"/>
+                <entry key="override" value-ref="overrideDirective"/>
+                <entry key="block" value-ref="blockDirective"/>
+                <entry key="super" value-ref="superDirective"/>
+            </map>
+        </property>
     </bean>
+    <bean id="blockDirective" class="cn.org.rapid_framework.freemarker.directive.BlockDirective"/>
+    <bean id="extendsDirective" class="cn.org.rapid_framework.freemarker.directive.ExtendsDirective"/>
+    <bean id="overrideDirective" class="cn.org.rapid_framework.freemarker.directive.OverrideDirective"/>
+    <bean id="superDirective" class="cn.org.rapid_framework.freemarker.directive.SuperDirective"/>
+    <!--视图解释器 -->
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="suffix">
+            <value>.ftl</value><!--后缀-->
+        </property>
+        <property name="contentType" value="text/html;charset=UTF-8"></property>
+        <property name="requestContextAttribute" value="rc"></property>
+    </bean>
+
 
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -26,5 +65,20 @@
             <value>5242880</value>
         </property>
     </bean>
+
+    <!--配置静态文件路径-->
+    <mvc:annotation-driven />
+    <!--当访问路径存在static时，不走过滤器和拦截器，访问本地文件中static目录-->
+    <mvc:resources mapping="/static/**/" location="/WEB-INF/static/"></mvc:resources>
+    
+
+    <!--<mvc:interceptors>-->
+        <!--<mvc:interceptor>-->
+            <!--<mvc:mapping path="/user/**"/>-->
+            <!--<mvc:exclude-mapping path="/user/userinfo/login"/>-->
+            <!--<bean class="com.neuedu.interceptors.MyInterceptor"/>-->
+        <!--</mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
+
 
 </beans>
