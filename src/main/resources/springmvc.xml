@@ -72,13 +72,13 @@
     <mvc:resources mapping="/static/**/" location="/WEB-INF/static/"></mvc:resources>
     
 
-    <!--<mvc:interceptors>-->
-        <!--<mvc:interceptor>-->
-            <!--<mvc:mapping path="/user/**"/>-->
-            <!--<mvc:exclude-mapping path="/user/userinfo/login"/>-->
-            <!--<bean class="com.neuedu.interceptors.MyInterceptor"/>-->
-        <!--</mvc:interceptor>-->
-    <!--</mvc:interceptors>-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/user/**"/>
+            <mvc:exclude-mapping path="/user/userinfo/login"/>
+            <bean class="com.neuedu.interceptors.MyInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 
 </beans>

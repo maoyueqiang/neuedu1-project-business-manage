@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -25,18 +26,50 @@ public class UserController {
     IUserService userService;
 
     @RequestMapping(value = "login",method = RequestMethod.GET)
-    public String login(){
+    public String login(HttpServletRequest request,HttpServletResponse response){
+        HttpSession session=request.getSession();
+        //从cookie中获取用户名和密码
+        Cookie[] cookies = request.getCookies();
+        String username=null;
+        String password=null;
+        if(cookies!=null&&cookies.length>0){
+            for(Cookie c:cookies){
+                if(c.getName().equals("username"))
+                    username=c.getValue();
+                if(c.getName().equals("password"))
+                    password=c.getValue();
+            }
+        }
+        if(username!=null&&password!=null){
+            UserInfo userInfo=new UserInfo();
+            userInfo.setUsername(username);
+            userInfo.setPassword(password);
+            UserInfo userInfo1 = userService.login(userInfo);
+            if(userInfo1==null)
+                return "home/login";
+            session.setAttribute(Const.CURRENT_USER,userInfo1);
+            return "home/home";
+        }
         return "home/login";
     }
 
     @RequestMapping(value = "login",method = RequestMethod.POST)
     //传来的内容自动为对象中属性赋值
-    public String login(UserInfo userInfo, HttpSession session){
+    public String login(UserInfo userInfo,HttpServletRequest request,HttpServletResponse response){
+
+        HttpSession session=request.getSession();
 
         UserInfo userInfo1 = userService.login(userInfo);
-        System.out.println(userInfo1);
-
         session.setAttribute(Const.CURRENT_USER,userInfo1);
+
+        //创建cookie
+        Cookie username_cookie=new Cookie("username",userInfo1.getUsername());
+        Cookie password_cookie=new Cookie("password",userInfo1.getPassword());
+        username_cookie.setMaxAge(7*24*60*60);
+        password_cookie.setMaxAge(7*24*60*60);
+        response.addCookie(username_cookie);
+        response.addCookie(password_cookie);
+
         return "home/home";
     }
 
