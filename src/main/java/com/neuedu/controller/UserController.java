@@ -19,7 +19,7 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("/user/userinfo/")
+@RequestMapping("/user/")
 public class UserController {
 
     @Autowired
@@ -74,10 +74,9 @@ public class UserController {
     }
 
     //显示用户列表
-    @RequestMapping(value = "list")
+    @RequestMapping(value = "userinfo/list")
     public String findAll(HttpSession session){
         List<UserInfo> userList = userService.findAll();
-        System.out.println(userList);
         session.setAttribute("userlist",userList);
 
         return "user/list";
@@ -85,21 +84,21 @@ public class UserController {
 
 
     //跳转用户更新列表
-    @RequestMapping(value = "update/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "userinfo/update/{id}",method = RequestMethod.GET)
     public String updateuser(@PathVariable("id") Integer userId, HttpServletRequest request){
         UserInfo userInfo = userService.findUserById(userId);
         request.setAttribute("userinfo",userInfo);
         return "user/index";
     }
     //跳转用户添加界面
-    @RequestMapping(value = "insert",method = RequestMethod.GET)
+    @RequestMapping(value = "userinfo/insert",method = RequestMethod.GET)
     public String insert(){
         return "user/index";
     }
 
 
     //用户更新/添加提交
-    @RequestMapping(value = "updateorinsert",method = RequestMethod.POST)
+    @RequestMapping(value = "userinfo/updateorinsert",method = RequestMethod.POST)
     public String updateuser(UserInfo userInfo, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
@@ -118,7 +117,7 @@ public class UserController {
     }
 
     //用户删除操作
-    @RequestMapping(value = "delete/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "userinfo/delete/{id}",method = RequestMethod.GET)
     public String delete(@PathVariable("id") Integer id, HttpServletRequest request){
         int count = userService.deleteUserInfo(id);
         if(count>0){

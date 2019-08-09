@@ -75,7 +75,7 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/user/**"/>
-            <mvc:exclude-mapping path="/user/userinfo/login"/>
+            <mvc:exclude-mapping path="/user/login"/>
             <bean class="com.neuedu.interceptors.MyInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

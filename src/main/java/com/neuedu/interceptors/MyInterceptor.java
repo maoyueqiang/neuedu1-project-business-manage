@@ -21,10 +21,13 @@ public class MyInterceptor implements HandlerInterceptor{
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 
-        HttpSession session = request.getSession();
+       HttpSession session = request.getSession();
 
         //从cookie中获取用户名和密码
         Cookie[] cookies = request.getCookies();
+        for(Cookie cookie:cookies){
+            System.out.println(cookie.getName()+"====="+cookie.getValue());
+        }
         String username=null;
         String password=null;
         if(cookies!=null&&cookies.length>0){
@@ -46,6 +49,7 @@ public class MyInterceptor implements HandlerInterceptor{
             return true;
         }
         return false;
+
     }
 
     @Override

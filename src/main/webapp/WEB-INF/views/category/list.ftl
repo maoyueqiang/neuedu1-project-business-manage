@@ -15,9 +15,10 @@
                     <table class="table table-bordered table-condensed">
                         <thead>
                         <tr>
-                            <th>类目id</th>
-                            <th>名字</th>
-                            <th>type</th>
+                            <th>类别id</th>
+                            <th>类别名称</th>
+                            <th>所属父类</th>
+                            <th>类别状态</th>
                             <th>创建时间</th>
                             <th>修改时间</th>
                             <th>操作</th>
@@ -30,10 +31,14 @@
                         <tr>
                             <td>${category.id}</td>
                             <td>${category.name}</td>
+                            <td>${category.parentId}</td>
                             <td>${category.status}</td>
                             <td>${category.createTime?string('yyyy-MM-dd HH:mm:ss')}</td>
                             <td>${category.updateTime?string('yyyy-MM-dd HH:mm:ss')}</td>
-                            <td><a href="/sell/seller/category/index?categoryId=${category.categoryId}">修改</a></td>
+                            <td>
+                                <a href="/user/category/update/${category.id}">修改</a>
+                                <a href="/user/category/delete/${category.id}">删除</a>
+                            </td>
                         </tr>
                         </#list>
                         </tbody>

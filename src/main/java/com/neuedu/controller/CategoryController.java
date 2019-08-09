@@ -24,7 +24,7 @@ public class CategoryController {
     @Autowired
     ICategoryService categoryService;
 
-    @RequestMapping("find")
+    @RequestMapping(value = "find",method = RequestMethod.GET)
     public String findAll(HttpSession session){
         List<Category> categoryList = categoryService.findAll();
         session.setAttribute("categorylist",categoryList);
@@ -36,19 +36,29 @@ public class CategoryController {
     public String update(@PathVariable("id") Integer categoryId, HttpServletRequest request){
         Category category = categoryService.findCategoryById(categoryId);
         request.setAttribute("category",category);
-        return "categoryupdate";
+        return "category/index";
+    }
+    @RequestMapping(value = "insert",method = RequestMethod.GET)
+    public String insert(){
+        return "category/index";
     }
 
-    @RequestMapping(value = "update/{id}",method = RequestMethod.POST)
-    public String update(Category category, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+    @RequestMapping(value = "insertorupdate",method = RequestMethod.POST)
+    public String insert(Category category,HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-
-        int count = categoryService.updateCategory(category);
+        if(category.getId()!=null) {
+            int count = categoryService.updateCategory(category);
+            if(count>0){
+                return "redirect:/user/category/find";
+            }
+            return "category/index";
+        }
+        int count = categoryService.addCategory(category);
         if(count>0){
             return "redirect:/user/category/find";
         }
-        return "categoryupdate";
+        throw new MyException("添加失败");
     }
 
     @RequestMapping(value = "delete/{id}",method = RequestMethod.GET)
@@ -60,17 +70,6 @@ public class CategoryController {
         throw new MyException("删除失败");
     }
 
-    @RequestMapping(value = "insert",method = RequestMethod.GET)
-    public String insert(){
-            return "categoryinsert";
-    }
 
-    @RequestMapping(value = "insert",method = RequestMethod.POST)
-    public String insert(Category category){
-        int count = categoryService.addCategory(category);
-        if(count>0){
-            return "redirect:/user/category/find";
-        }
-        throw new MyException("添加失败");
-    }
+
 }
