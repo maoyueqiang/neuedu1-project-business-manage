@@ -1,11 +1,11 @@
 <html>
-<#include "../common/header.ftl">
+<#include "common/header.ftl">
 
 <body>
 <div id="wrapper" class="toggled">
 
     <#--边栏sidebar-->
-    <#include "../common/nav.ftl">
+    <#include "common/nav.ftl">
 
     <#--主要内容content-->
     <div id="page-content-wrapper">
@@ -17,6 +17,7 @@
                         <tr>
                             <th>商品id</th>
                             <th>名称</th>
+                            <th>副标题</th>
                             <th>图片</th>
                             <th>单价</th>
                             <th>库存</th>
@@ -29,23 +30,27 @@
                         </thead>
                         <tbody>
 
-                        <#list productInfoPage.content as productInfo>
+                        <#list productList as product>
                         <tr>
-                            <td>${productInfo.productId}</td>
-                            <td>${productInfo.productName}</td>
-                            <td><img height="100" width="100" src="${productInfo.productIcon}" alt=""></td>
-                            <td>${productInfo.productPrice}</td>
-                            <td>${productInfo.productStock}</td>
-                            <td>${productInfo.productDescription}</td>
-                            <td>${productInfo.categoryType}</td>
-                            <td>${productInfo.createTime}</td>
-                            <td>${productInfo.updateTime}</td>
-                            <td><a href="/sell/seller/product/index?productId=${productInfo.productId}">修改</a></td>
+                            <td>${product.id}</td>
+                            <td>${product.name}</td>
+                            <td>${product.subtitle}</td>
+                            <td><img height="100" width="100" src="${product.mainImage}" alt=""></td>
+                            <td>${product.price}</td>
+                            <td>${product.stock}</td>
+                            <td>${product.detail}</td>
+                            <td>${product.categoryId}</td>
+                            <td>${product.createTime?string('yyyy-MM-dd HH:mm:ss')}</td>
+                            <td>${product.updateTime?string('yyyy-MM-dd HH:mm:ss')}</td>
                             <td>
-                                <#if productInfo.getProductStatusEnum().message == "在架">
-                                    <a href="/sell/seller/product/off_sale?productId=${productInfo.productId}">下架</a>
+                                <a href="/user/product/update/${product.id}">修改</a>
+                                <a href="/user/product/delete/${product.id}">删除</a>
+                            </td>
+                            <td>
+                                <#if product.getProductStatusEnum().message == "在售">
+                                    <a href="/sell/seller/product/off_sale?productId=${product.id}">下架</a>
                                 <#else>
-                                    <a href="/sell/seller/product/on_sale?productId=${productInfo.productId}">上架</a>
+                                    <a href="/sell/seller/product/on_sale?productId=${product.id}">上架</a>
                                 </#if>
                             </td>
                         </tr>
@@ -63,7 +68,7 @@
                         <li><a href="/sell/seller/order/list?page=${currentPage - 1}&size=${size}">上一页</a></li>
                     </#if>
 
-                    <#list 1..productInfoPage.getTotalPages() as index>
+                    <#list 1..productList.getTotalPages() as index>
                         <#if currentPage == index>
                             <li class="disabled"><a href="#">${index}</a></li>
                         <#else>
@@ -71,7 +76,7 @@
                         </#if>
                     </#list>
 
-                    <#if currentPage gte productInfoPage.getTotalPages()>
+                    <#if currentPage gte productList.getTotalPages()>
                         <li class="disabled"><a href="#">下一页</a></li>
                     <#else>
                         <li><a href="/sell/seller/order/list?page=${currentPage + 1}&size=${size}">下一页</a></li>

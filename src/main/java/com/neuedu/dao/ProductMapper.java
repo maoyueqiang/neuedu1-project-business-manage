@@ -1,7 +1,10 @@
 package com.neuedu.dao;
 
 import com.neuedu.pojo.Product;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
+
 
 public interface ProductMapper {
     /**
@@ -41,6 +44,7 @@ public interface ProductMapper {
      * This method corresponds to the database table neuedu_product
      *
      * @mbggenerated
+     * @param product
      */
-    int updateByPrimaryKey(Product record);
+    int updateByPrimaryKey(Product product);
 }

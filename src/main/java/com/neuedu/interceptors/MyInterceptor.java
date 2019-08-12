@@ -25,9 +25,7 @@ public class MyInterceptor implements HandlerInterceptor{
 
         //从cookie中获取用户名和密码
         Cookie[] cookies = request.getCookies();
-        for(Cookie cookie:cookies){
-            System.out.println(cookie.getName()+"====="+cookie.getValue());
-        }
+
         String username=null;
         String password=null;
         if(cookies!=null&&cookies.length>0){
