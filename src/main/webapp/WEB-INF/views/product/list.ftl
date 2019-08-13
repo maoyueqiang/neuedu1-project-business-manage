@@ -43,8 +43,8 @@
                             <td>${product.createTime?string('yyyy-MM-dd HH:mm:ss')}</td>
                             <td>${product.updateTime?string('yyyy-MM-dd HH:mm:ss')}</td>
                             <td>
-                                <a href="/user/product/update/${product.id}">修改</a>
-                                <a href="/user/product/delete/${product.id}">删除</a>
+                                <a href="/business_manage/user/product/update/${product.id}">修改</a>
+                                <a href="/business_manage/user/product/delete/${product.id}">删除</a>
                             </td>
                             <td>
                                 <#if product.getProductStatusEnum().message == "在售">

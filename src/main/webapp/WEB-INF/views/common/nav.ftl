@@ -9,8 +9,8 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="fa fa-fw fa-plus"></i> 用户 <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
                 <li class="dropdown-header">操作</li>
-                <li><a href="/user/userinfo/list">列表</a></li>
-                <li><a href="/user/userinfo/insert">新增</a></li>
+                <li><a href="/business_manage/user/userinfo/list">列表</a></li>
+                <li><a href="/business_manage/user/userinfo/insert">新增</a></li>
             </ul>
         </li>
         <li>
@@ -20,16 +20,16 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="fa fa-fw fa-plus"></i> 商品 <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
                 <li class="dropdown-header">操作</li>
-                <li><a href="/user/product/find">列表</a></li>
-                <li><a href="/user/product/insert">新增</a></li>
+                <li><a href="/business_manage/user/product/find">列表</a></li>
+                <li><a href="/business_manage/user/product/insert">新增</a></li>
             </ul>
         </li>
         <li class="dropdown open">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="fa fa-fw fa-plus"></i> 类别 <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
                 <li class="dropdown-header">操作</li>
-                <li><a href="/user/category/find">列表</a></li>
-                <li><a href="/user/category/insert">新增</a></li>
+                <li><a href="/business_manage/user/category/find">列表</a></li>
+                <li><a href="/business_manage/user/category/insert">新增</a></li>
             </ul>
         </li>
 

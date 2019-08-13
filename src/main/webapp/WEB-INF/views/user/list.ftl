@@ -45,8 +45,8 @@
                             <td>${user.createTime?string('yyyy-MM-dd HH:mm:ss')}</td>
                             <td>${user.updateTime?string('yyyy-MM-dd HH:mm:ss')}</td>
                             <td>${user.ip}</td>
-                            <td><a href="/user/userinfo/update/${user.id}">修改</a>
-                                <a href="/user/userinfo/delete/${user.id}">删除</a>
+                            <td><a href="/business_manage/user/userinfo/update/${user.id}">修改</a>
+                                <a href="/business_manage/user/userinfo/delete/${user.id}">删除</a>
                             </td>
                         </tr>
                         </#list>

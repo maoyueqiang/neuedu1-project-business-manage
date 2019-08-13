@@ -12,7 +12,7 @@
         <div class="container-fluid">
             <div class="row clearfix">
                 <div class="col-md-12 column">
-                    <form role="form" method="post" action="/user/category/insertorupdate">
+                    <form role="form" method="post" action="/business_manage/user/category/insertorupdate">
                         <div class="form-group">
                             <label>类别名称</label>
                             <input name="name" type="text" class="form-control" value="${(category.name)!''}"/>

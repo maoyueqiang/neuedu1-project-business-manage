@@ -12,7 +12,7 @@
         <div class="container-fluid">
             <div class="row clearfix">
                 <div class="col-md-12 column">
-                    <form role="form" method="post" action="/user/product/insertorupdate">
+                    <form role="form" method="post" action="/business_manage/user/product/insertorupdate">
                         <div class="form-group">
                             <label>名称</label>
                             <input name="name" type="text" class="form-control" value="${(product.name)!''}"/>

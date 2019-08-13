@@ -7,10 +7,10 @@
 
 
     <!--可无视-->
-    <link rel="stylesheet" href="/static/css/login/bootstrap.min.css">
+    <link rel="stylesheet" href="/business_manage/static/css/login/bootstrap.min.css">
 
     <!--主要样式-->
-    <link type="text/css" href="/static/css/login/loginstyle.css" rel="stylesheet" />
+    <link type="text/css" href="/business_manage/static/css/login/loginstyle.css" rel="stylesheet" />
 
     <script>
         if(self!=top)
