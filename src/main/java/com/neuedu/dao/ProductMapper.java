@@ -1,6 +1,7 @@
 package com.neuedu.dao;
 
 import com.neuedu.pojo.Product;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -47,4 +48,7 @@ public interface ProductMapper {
      * @param product
      */
     int updateByPrimaryKey(Product product);
+
+    List<Product> findProductInOnePage(@Param("index") Integer index,
+                                       @Param("size") Integer size);
 }

@@ -6,6 +6,7 @@ import com.neuedu.pojo.Product;
 import com.neuedu.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -38,6 +39,11 @@ public class ProductServiceImpl implements IProductService{
     @Override
     public int delete(int id) throws MyException {
         return productMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public List<Product> findProductInOnePage(Integer index, Integer size) {
+        return productMapper.findProductInOnePage(index,size);
     }
 
 

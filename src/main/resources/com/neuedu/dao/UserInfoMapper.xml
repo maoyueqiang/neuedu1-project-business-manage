@@ -37,7 +37,7 @@
       update_time, ip)
     values (#{user.username,jdbcType=VARCHAR}, #{user.password,jdbcType=VARCHAR},
       #{user.email,jdbcType=VARCHAR}, #{user.phone,jdbcType=VARCHAR}, #{user.question,jdbcType=VARCHAR},
-      #{user.answer,jdbcType=VARCHAR}, 1, now(),
+      #{user.answer,jdbcType=VARCHAR}, 0, now(),
       now(), #{user.ip,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.neuedu.pojo.UserInfo" >

@@ -4,6 +4,7 @@ import com.neuedu.consts.Const;
 import com.neuedu.exception.MyException;
 import com.neuedu.pojo.UserInfo;
 import com.neuedu.service.IUserService;
+import com.neuedu.utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,6 +59,7 @@ public class UserController {
     public String login(UserInfo userInfo,HttpServletRequest request,HttpServletResponse response){
 
         HttpSession session=request.getSession();
+        userInfo.setPassword(MD5Utils.getMD5Code(userInfo.getPassword()));
 
         UserInfo userInfo1 = userService.login(userInfo);
         session.setAttribute(Const.CURRENT_USER,userInfo1);

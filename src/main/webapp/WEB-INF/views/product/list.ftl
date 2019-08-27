@@ -25,7 +25,7 @@
                             <th>类目</th>
                             <th>创建时间</th>
                             <th>修改时间</th>
-                            <th colspan="2">操作</th>
+                            <th colspan="3">操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -38,12 +38,16 @@
                             <td><img height="100" width="100" src="${product.mainImage}" alt=""></td>
                             <td>${product.price}</td>
                             <td>${product.stock}</td>
-                            <td>${product.detail}</td>
+                            <td>
+                                <a href="/business_manage/user/product/details/${product.id}">详情</a>
+                            </td>
                             <td>${product.categoryId}</td>
                             <td>${product.createTime?string('yyyy-MM-dd HH:mm:ss')}</td>
                             <td>${product.updateTime?string('yyyy-MM-dd HH:mm:ss')}</td>
                             <td>
                                 <a href="/business_manage/user/product/update/${product.id}">修改</a>
+                            </td>
+                            <td>
                                 <a href="/business_manage/user/product/delete/${product.id}">删除</a>
                             </td>
                             <td>
@@ -60,29 +64,91 @@
                 </div>
 
             <#--分页-->
-                <div class="col-md-12 column">
-                    <ul class="pagination pull-right">
-                    <#if currentPage lte 1>
-                        <li class="disabled"><a href="#">上一页</a></li>
-                    <#else>
-                        <li><a href="/sell/seller/order/list?page=${currentPage - 1}&size=${size}">上一页</a></li>
-                    </#if>
-
-                    <#list 1..productList.getTotalPages() as index>
-                        <#if currentPage == index>
-                            <li class="disabled"><a href="#">${index}</a></li>
+                <#if pages lte 10>
+                    <div class="col-md-12 column">
+                        <ul class="pagination pull-right">
+                        <#if currentPage lte 1>
+                            <li class="disabled"><a href="#">上一页</a></li>
                         <#else>
-                            <li><a href="/sell/seller/order/list?page=${index}&size=${size}">${index}</a></li>
+                            <li><a href="/business_manage/user/product/find/${currentPage - 1}/${size}">上一页</a></li>
                         </#if>
-                    </#list>
 
-                    <#if currentPage gte productList.getTotalPages()>
-                        <li class="disabled"><a href="#">下一页</a></li>
-                    <#else>
-                        <li><a href="/sell/seller/order/list?page=${currentPage + 1}&size=${size}">下一页</a></li>
-                    </#if>
-                    </ul>
-                </div>
+                        <#list 1..pages as index>
+                            <#if currentPage == index>
+                                <li class="disabled"><a href="#">${index}</a></li>
+                            <#else>
+                                <li><a href="/business_manage/user/product/find/${index}/${size}">${index}</a></li>
+                            </#if>
+                        </#list>
+
+                        <#if currentPage gte pages>
+                            <li class="disabled"><a href="#">下一页</a></li>
+                        <#else>
+                            <li><a href="/business_manage/user/product/find/${currentPage + 1}/${size}">下一页</a></li>
+                        </#if>
+                        </ul>
+                    </div>
+                <#else>
+                    <div class="col-md-12 column">
+                        <ul class="pagination pull-right">
+                        <#if currentPage lte 1>
+                            <li class="disabled"><a href="#">上一页</a></li>
+                        <#else>
+                            <li><a href="/business_manage/user/product/find/${currentPage - 1}/${size}">上一页</a></li>
+                        </#if>
+
+                        <#if currentPage lt 7>
+                            <#list 1..7 as index>
+                                <#if currentPage == index>
+                                <li class="disabled"><a href="#">${index}</a></li>
+                                <#else>
+                                <li><a href="/business_manage/user/product/find/${index}/${size}">${index}</a></li>
+                                </#if>
+                            </#list>
+                            <li class="disabled"><a href="#">…</a></li>
+                            <#list (pages-2)..pages as index>
+                                <li><a href="/business_manage/user/product/find/${index}/${size}">${index}</a></li>
+                            </#list>
+                        <#elseif currentPage gt (pages-6)>
+                            <#list 1..3 as index>
+                                <li><a href="/business_manage/user/product/find/${index}/${size}">${index}</a></li>
+                            </#list>
+                            <li class="disabled"><a href="#">…</a></li>
+                            <#list (pages-6)..pages as index>
+                                <#if currentPage == index>
+                                    <li class="disabled"><a href="#">${index}</a></li>
+                                <#else>
+                                <li><a href="/business_manage/user/product/find/${index}/${size}">${index}</a></li>
+                                </#if>
+                            </#list>
+                        <#else>
+                            <#list 1..3 as index>
+                                <li><a href="/business_manage/user/product/find/${index}/${size}">${index}</a></li>
+                            </#list>
+                            <li class="disabled"><a href="#">…</a></li>
+                            <#list (currentPage-2)..(currentPage+2) as index>
+                                <#if currentPage == index>
+                                    <li class="disabled"><a href="#">${index}</a></li>
+                                <#else>
+                                <li><a href="/business_manage/user/product/find/${index}/${size}">${index}</a></li>
+                                </#if>
+                            </#list>
+                            <li class="disabled"><a href="#">…</a></li>
+                            <#list (pages-2)..pages as index>
+                                <li><a href="/business_manage/user/product/find/${index}/${size}">${index}</a></li>
+                            </#list>
+                        </#if>
+
+                        <#if currentPage gte pages>
+                            <li class="disabled"><a href="#">下一页</a></li>
+                        <#else>
+                            <li><a href="/business_manage/user/product/find/${currentPage + 1}/${size}">下一页</a></li>
+                        </#if>
+                        </ul>
+                    </div>
+
+
+                </#if>
             </div>
         </div>
     </div>
