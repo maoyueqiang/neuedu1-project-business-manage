@@ -1,14 +1,14 @@
 <html>
-<#include "../common/header.ftl">
+<#include "common/header.ftl">
 
 <body>
 <div id="wrapper" class="toggled">
 
-    <#--边栏sidebar-->
-    <#include "../common/nav.ftl">
+<#--边栏sidebar-->
+    <#include "common/nav.ftl">
 
 
-    <#--主要内容content-->
+<#--主要内容content-->
     <div id="page-content-wrapper">
         <div class="container">
             <div class="row clearfix">
@@ -16,14 +16,24 @@
                     <table class="table table-bordered">
                         <thead>
                         <tr>
-                            <th>订单id</th>
+                            <th>订单编号</th>
                             <th>订单总金额</th>
+                            <th>发货</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td>${orderDTO.orderId}</td>
-                            <td>${orderDTO.orderAmount}</td>
+                            <td>${order.orderNo}</td>
+                            <td>${order.payment}</td>
+                            <#if order.status == 20>
+                            <td>
+                                <a href="/business_manage/user/order/postProduct/${order.orderNo}">发货</a>
+                            </td>
+                            <#else>
+                            <td>
+                                发货
+                            </td>
+                            </#if>
                         </tr>
                         </tbody>
                     </table>
@@ -42,13 +52,13 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <#list orderDTO.orderDetailList as orderDetail>
+                        <#list orderItemList as orderItem>
                         <tr>
-                            <td>${orderDetail.productId}</td>
-                            <td>${orderDetail.productName}</td>
-                            <td>${orderDetail.productPrice}</td>
-                            <td>${orderDetail.productQuantity}</td>
-                            <td>${orderDetail.productQuantity * orderDetail.productPrice}</td>
+                            <td>${orderItem.productId}</td>
+                            <td>${orderItem.productName}</td>
+                            <td>${orderItem.currentUnitPrice}</td>
+                            <td>${orderItem.quantity}</td>
+                            <td>${orderItem.totalPrice}</td>
                         </tr>
                         </#list>
                         </tbody>
